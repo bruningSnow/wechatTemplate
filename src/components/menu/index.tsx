@@ -14,6 +14,7 @@ type TMenuItem = {
   activity_id?: number;
   page_name?: string;
   target_type?: string;
+  style?: CSSProperties;
 };
 
 const defaultProps = {
@@ -24,38 +25,43 @@ const defaultProps = {
       path_url: "pages/home/index",
       target_type: "homePages",
       thumbnail_url:
-        "https://udh.oss-cn-hangzhou.aliyuncs.com/7ef19958-1e10-4f90-b335-81db0ecd14548854770icon.svg",
+        "https://udh.oss-cn-hangzhou.aliyuncs.com/31420c49-bc20-414e-877b-7964639971c978359980891.png",
       active:
-        "https://udh.oss-cn-hangzhou.aliyuncs.com/c0dc10ad-a978-4ed8-8286-b4502c166da2878813icon1.svg",
+        "https://udh.oss-cn-hangzhou.aliyuncs.com/720d635d-e969-4cf2-813a-76ac5b166dd167835998017.png",
+      style: {
+        width: "25px",
+        height: "11px",
+        marginTop: "2px",
+      },
     },
     {
       activity_id: 16634,
-      page_name: "产品分类",
+      page_name: "上传",
       path_url: "pages/category/index",
-      target_type: "categoryPages",
+      target_type: "uploadPages",
       thumbnail_url:
-        "https://udh.oss-cn-hangzhou.aliyuncs.com/155e204b-4a90-47d5-b6ec-a024f7f4b79603367icon2x.png",
+        "https://udh.oss-cn-hangzhou.aliyuncs.com/49a6b00c-855a-4d68-8c98-7a6526ab30a878359980011.png",
       active:
-        "https://udh.oss-cn-hangzhou.aliyuncs.com/2a9f5afc-bd79-466e-90a7-1c6e108d5f3e53793icon2x.png",
+        "https://udh.oss-cn-hangzhou.aliyuncs.com/21f55c02-b507-4866-9c3a-d2d5562b777b67835998076.png",
+      style: {
+        width: "30px",
+        height: "30px",
+      },
     },
     {
       activity_id: 16635,
-      page_name: "购物袋",
+      page_name: "商城",
       path_url: "pages/shopcar/index",
-      target_type: "shopcarPages",
+      target_type: "shopPages",
       thumbnail_url:
-        "https://udh.oss-cn-hangzhou.aliyuncs.com/573cbe76-53b4-48a4-ac9c-ba86e3df94f0696309icon1.svg",
+        "https://udh.oss-cn-hangzhou.aliyuncs.com/53c5f076-41eb-43dc-8fc7-74bb2ba26baf78359980851.png",
       active:
-        "https://udh.oss-cn-hangzhou.aliyuncs.com/a404247b-486d-4444-a692-4db4ad727bdc875166icon2.svg",
-    },
-    {
-      activity_id: 77777,
-      page_name: "客服",
-      path_url: "",
-      target_type: "customerService",
-      thumbnail_url:
-        "https://udh.oss-cn-hangzhou.aliyuncs.com/847c7885-5d6c-4b9d-8fbc-83a2f574cb66237351icon2.svg",
-      active: "",
+        "https://udh.oss-cn-hangzhou.aliyuncs.com/9b318ee1-8682-46d2-958f-9d8ddaa5670167835998058.png",
+      style: {
+        width: "25px",
+        height: "11px",
+        marginTop: "2px",
+      },
     },
     {
       activity_id: 16636,
@@ -173,17 +179,17 @@ const textList: TextItemProps["value"][] = [
       name: "销售条款.docx",
       fileType: "docx",
     },
-    "》， 且同意注册成为MCM会员。",
+    "》， 且同意注册成为xxx会员。",
   ],
   [
-    "我同意并确认MCM可能会根据《",
+    "我同意并确认xxx可能会根据《",
     {
       text: "个人信息保护政策",
       file: "https://udh.oss-cn-hangzhou.aliyuncs.com/07c0369b-4e94-4607-a619-980182abe50f8607528712.docx",
       name: "个人信息保护政策.docx",
       fileType: "docx",
     },
-    "》与位于境外的关联公司和合作伙伴分享我的个人信息，并将我的个人信息跨境存储在境外服务器上。",
+    "》。",
   ],
 ];
 
@@ -244,6 +250,7 @@ const Menu: React.FC<MenuProps> = (props) => {
             <Image
               className={styles.img}
               mode="widthFix"
+              style={menuItem.style || {}}
               src={
                 currentUrl === menuItem.path_url
                   ? menuItem.active

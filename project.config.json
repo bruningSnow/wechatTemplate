@@ -1,8 +1,8 @@
 {
   "miniprogramRoot": "./dist",
-  "projectname": "xiaodian",
-  "description": "那小店",
-  "appid": "wxffccf734b0db4211",
+  "projectname": "guniao",
+  "description": "孤鸟",
+  "appid": "wxbd2004509158c9be",
   "setting": {
     "urlCheck": true,
     "es6": false,
