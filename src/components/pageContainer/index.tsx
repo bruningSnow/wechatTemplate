@@ -2,7 +2,8 @@ import Taro from "@tarojs/taro";
 import React, { CSSProperties, useEffect } from "react";
 import { View } from "@tarojs/components";
 import Classnames from "classnames";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { ConnectState } from "@/models/index";
 import Menu, { MenuProps } from "../menu";
 
 import styles from "./index.module.scss";
@@ -22,6 +23,7 @@ export interface PageContainerProps {
 const PageContainer: React.FC<PageContainerProps> = (props) => {
   const dispatch = useDispatch();
   const { className, style, hasMenu, menuConfig } = props;
+  const { user } = useSelector((state: ConnectState) => state.global);
 
   /**
    * 获取路由相关信息
@@ -71,6 +73,18 @@ const PageContainer: React.FC<PageContainerProps> = (props) => {
     });
   };
 
+  /**
+   * 获取当前用户信息
+   */
+  const getUserInformation = () => {
+    setTimeout(() => {
+      dispatch({
+        type: "global/save",
+        payload: { user: { ...user, phone: "19165069589" } },
+      });
+    }, 1000);
+  };
+
   useEffect(() => {
     getNetWork().then(({ networkType }) => {
       dispatch({
@@ -78,6 +92,7 @@ const PageContainer: React.FC<PageContainerProps> = (props) => {
         payload: { networkType, ...getRouters(), ...getLocalData() },
       });
     });
+    getUserInformation();
   }, []);
 
   return (

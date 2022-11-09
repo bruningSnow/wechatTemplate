@@ -1,10 +1,11 @@
 import React, { CSSProperties, useEffect, useState, useMemo } from "react";
-import Taro, { useDidShow } from "@tarojs/taro";
+import Taro from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import Classnames from "classnames";
 import { AtModal, AtButton } from "taro-ui";
+import { useSelector } from "react-redux";
+import { ConnectState } from "@/models/index";
 // import { queryShopcarList } from "@/services/index";
-import { checkOpenId } from "@/utils/utils";
 import styles from "./index.module.scss";
 
 type TMenuItem = {
@@ -35,20 +36,6 @@ const defaultProps = {
       },
     },
     {
-      activity_id: 16634,
-      page_name: "上传",
-      path_url: "pages/category/index",
-      target_type: "uploadPages",
-      thumbnail_url:
-        "https://udh.oss-cn-hangzhou.aliyuncs.com/49a6b00c-855a-4d68-8c98-7a6526ab30a878359980011.png",
-      active:
-        "https://udh.oss-cn-hangzhou.aliyuncs.com/21f55c02-b507-4866-9c3a-d2d5562b777b67835998076.png",
-      style: {
-        width: "30px",
-        height: "30px",
-      },
-    },
-    {
       activity_id: 16635,
       page_name: "商城",
       path_url: "pages/shopcar/index",
@@ -61,6 +48,20 @@ const defaultProps = {
         width: "25px",
         height: "11px",
         marginTop: "2px",
+      },
+    },
+    {
+      activity_id: 16634,
+      page_name: "上传",
+      path_url: "pages/category/index",
+      target_type: "uploadPages",
+      thumbnail_url:
+        "https://udh.oss-cn-hangzhou.aliyuncs.com/49a6b00c-855a-4d68-8c98-7a6526ab30a878359980011.png",
+      active:
+        "https://udh.oss-cn-hangzhou.aliyuncs.com/21f55c02-b507-4866-9c3a-d2d5562b777b67835998076.png",
+      style: {
+        width: "30px",
+        height: "30px",
       },
     },
     {
@@ -195,9 +196,10 @@ const textList: TextItemProps["value"][] = [
 
 const Menu: React.FC<MenuProps> = (props) => {
   const { className, style, menuList } = props;
-  const [isOpened, setIsOpened] = useState<boolean>(true);
-  const [currentQuery, setCurrentQuery] = useState<IObject>({});
-  const [currentUrl, setCurrentUrl] = useState<string>("");
+  const { openId, currentUrl, user } = useSelector(
+    (state: ConnectState) => state.global
+  );
+  const [isOpened, setIsOpened] = useState<boolean>(false);
   const [checkedMap, setCcheckMap] = useState({
     0: false,
     1: false,
@@ -210,30 +212,31 @@ const Menu: React.FC<MenuProps> = (props) => {
   );
 
   /**
-   * 获取当前路由 query 参数及 url
+   * 同意协议证书
    */
-  const getCurrentQuery = () => {
-    const pages = Taro.getCurrentPages(); //获取加载的页面
-    const currentPage = pages[pages.length - 1]; //获取当前页面的对象
-    const { route, query } = currentPage.__displayReporter;
-
-    setCurrentQuery(query);
-    setCurrentUrl(route);
-  };
-
-  /**
-   * 获取购物车列表
-   */
-  const fetchShopCarList = () => {
-    checkOpenId().then(async (open_id) => {
-      // queryShopcarList({ open_id });
+  const agreeCertificate = () => {
+    if (passCheckout) {
+      setIsOpened(false);
+      return;
+    }
+    Taro.showToast({
+      title: "请勾选相关条框",
+      icon: "error",
+      duration: 2000,
     });
   };
 
-  useDidShow(() => {
-    getCurrentQuery();
-    fetchShopCarList();
-  });
+  /**
+   * 获取电话号码授权
+   * https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/getPhoneNumber.html
+   */
+  const getPhoneNumber = (e) => {
+    console.log(e.detail.code);
+  };
+
+  useEffect(() => {
+    setIsOpened(Boolean(user.phone));
+  }, [user]);
 
   return (
     <View className={Classnames(styles.index, className)} style={style}>
@@ -299,10 +302,8 @@ const Menu: React.FC<MenuProps> = (props) => {
             type="primary"
             className={styles.menuModal_footer_ok}
             openType={passCheckout ? "getPhoneNumber" : ("" as any)}
-            onGetPhoneNumber={() => {}}
-            onClick={() => {
-              console.log("ttttt =>", Taro.getApp());
-            }}
+            onGetPhoneNumber={getPhoneNumber}
+            onClick={agreeCertificate}
           >
             同意
           </AtButton>

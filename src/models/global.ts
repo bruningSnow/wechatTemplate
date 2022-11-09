@@ -1,4 +1,12 @@
 import { Reducer } from "redux";
+
+export interface IUser {
+  nickName: string;
+  avatar: string;
+  phone: string;
+  vipInfo?: IObject
+}
+
 export interface IState extends IObject {
   logo: string;
   scene: string | number;
@@ -9,6 +17,7 @@ export interface IState extends IObject {
   currentQueryStr: string;
   currentUrl: string;
   currentQuery: IObject;
+  user: IUser;
 }
 
 export interface IReducers {
@@ -29,6 +38,12 @@ const globalModel: IGlobalModel = {
     currentQueryStr: "",
     currentUrl: "",
     currentQuery: {},
+    user: {
+      nickName: '',
+      avatar: '',
+      phone: '',
+      vipInfo: {}
+    }
   },
 
   reducers: {
