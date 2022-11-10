@@ -1,2 +1,14 @@
 .index {
+    .pageContent {
+        position: relative;
+        width: 100vw;
+        .mark {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+        }
+    }
 }
