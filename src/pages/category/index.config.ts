@@ -1,3 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: "首页",
+  navigationBarTitleText: "上传",
+  navigationBarBackgroundColor: "#ededed",
 });

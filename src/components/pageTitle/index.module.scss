@@ -1,0 +1,40 @@
+.index {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  padding: 40px 20px 0;
+  width: 100%;
+
+  .pageTitle_left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+    .text {
+      font-family: -apple-system-font, BlinkMacSystemFont, "Helvetica Neue",
+        "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI",
+        "Microsoft YaHei", Arial, sans-serif;
+      font-size: 40px;
+      color: rgb(23, 23, 23);
+      font-weight: 600;
+    }
+  }
+
+  .applyMember {
+    padding: 10px 20px;
+    border: 1px solid rgb(23, 23, 23);
+    font-family: -apple-system-font, BlinkMacSystemFont, "Helvetica Neue",
+      "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei",
+      Arial, sans-serif;
+    font-size: 28px;
+    color: rgb(23, 23, 23);
+    font-weight: 600;
+    border-radius: 40px;
+  }
+}

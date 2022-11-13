@@ -1,5 +1,4 @@
 export default definePageConfig({
-  navigationStyle: "custom",
-  enablePullDownRefresh: true,
-  onReachBottomDistance: 150,
+  navigationBarTitleText: "孤岛易设",
+  navigationBarBackgroundColor: "#ededed",
 });

@@ -4,7 +4,7 @@ import { Text, Button } from "@tarojs/components";
 import { useSelector, useDispatch } from "react-redux";
 import { ConnectState } from "@/models/index";
 import { get_sys_app } from "@/utils/sysConfigs";
-import { PageContainer } from "@/components/index";
+import { PageContainer, PageTitle } from "@/components/index";
 import styles from "./index.module.scss";
 
 const sys_app = get_sys_app();
@@ -17,15 +17,7 @@ const Index: React.FC<any> = () => {
 
   return (
     <PageContainer hasMenu={true} className={styles.index}>
-      <Text>Hello world!{access_token}</Text>
-      <Button
-        onClick={() => {
-          dispatch({ type: "global/save", payload: { access_token: "444" } });
-          Taro.navigateTo({ url: "/pages/index/index" });
-        }}
-      >
-        Increment counter
-      </Button>
+      <PageTitle needMember={false} />
     </PageContainer>
   );
 };

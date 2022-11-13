@@ -16,17 +16,7 @@ const Index: React.FC<any> = () => {
   console.log("networkType =>", sys_app.state.networkType);
 
   return (
-    <PageContainer hasMenu={true} className={styles.index}>
-      <Text>Hello world!{access_token}</Text>
-      <Button
-        onClick={() => {
-          dispatch({ type: "global/save", payload: { access_token: "444" } });
-          Taro.navigateTo({ url: "/pages/index/index" });
-        }}
-      >
-        Increment counter
-      </Button>
-    </PageContainer>
+    <PageContainer hasMenu={true} className={styles.index}></PageContainer>
   );
 };
 
